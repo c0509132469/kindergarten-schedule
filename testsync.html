@@ -432,25 +432,26 @@
     </div>
 
     <!-- Firebase SDK -->
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-      import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+  <!-- Firebase Compat SDK – יציב יותר ב-GitHub Pages -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
 
-      const firebaseConfig = {
-        apiKey: "AIzaSyCv7GIt_uLo6kTNTc3yCW5UDH8je0n-E18",
-        authDomain: "kindergarten-schedule-yo-80f08.firebaseapp.com",
-        projectId: "kindergarten-schedule-yo-80f08",
-        storageBucket: "kindergarten-schedule-yo-80f08.firebasestorage.app",
-        messagingSenderId: "960207808761",
-        appId: "1:960207808761:web:4283824abee35eaeecda28"
-      };
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCv7GIt_uLo6kTNTc3yCW5UDH8je0n-E18",
+    authDomain: "kindergarten-schedule-yo-80f08.firebaseapp.com",
+    projectId: "kindergarten-schedule-yo-80f08",
+    storageBucket: "kindergarten-schedule-yo-80f08.firebasestorage.app",
+    messagingSenderId: "960207808761",
+    appId: "1:960207808761:web:4283824abee35eaeecda28"
+  };
 
-      const app = initializeApp(firebaseConfig);
-      const db = getDatabase(app);
-      window.db = db;
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+  window.db = db;
 
-      console.log("Firebase מחובר!");
-    </script>
+  console.log("Firebase מחובר בגרסה compat!");
+</script>
 
     <script>
         const SCHEDULE = [
