@@ -662,22 +662,26 @@
                 
                 const dayLessons = SCHEDULE.filter(l => l.day === dayOfWeek);
                 
-                dayLessons.forEach(lesson => {
-                    const status = getLessonStatus(d, lesson.name);
-                    if (status === 'cancelled') return;
-                    
-                    const count = status === 'double' ? 2 : 1;
-                    total += count;
-                    
-                    if (lesson.city === 'רמלה') {
-                        ramla += count;
-                        if (lesson.type === 'ספורטיגן') sportigenR += count;
-                        else theaterR += count;
-                    } else {
-                        by += count;
-                        if (lesson.type === 'ספורטיגן') sportigenB += count;
-                        else theaterB += count;
-                    }
+                       dayLessons.forEach(lesson => {
+            const status = getLessonStatus(d, lesson.name);
+            
+            // אם בוטל → לא סופרים בכלל
+            if (status === 'cancelled') return;
+            
+            // אם כפול → 2, אם בוצע או pending → 1
+            const count = (status === 'double') ? 2 : 1;
+            total += count;
+            
+            if (lesson.city === 'רמלה') {
+                ramla += count;
+                if (lesson.type === 'ספורטיגן') sportigenR += count;
+                else theaterR += count;
+            } else {
+                by += count;
+                if (lesson.type === 'ספורטיגן') sportigenB += count;
+                else theaterB += count;
+            }
+        });
                 });
                 
                 const dateKey = d.toISOString().split('T')[0];
