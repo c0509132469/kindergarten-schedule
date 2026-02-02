@@ -376,8 +376,8 @@
         const firebaseConfig = {
             apiKey: "AIzaSyCv7GIt_uLo6kTNTc3yCW5UDH8je0n-E18",
             authDomain: "kindergarten-schedule-yo-80f08.firebaseapp.com",
-            projectId: "kindergarten-schedule-yo-80f08",
             databaseURL: "https://kindergarten-schedule-yo-80f08-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "kindergarten-schedule-yo-80f08",
             storageBucket: "kindergarten-schedule-yo-80f08.firebasestorage.app",
             messagingSenderId: "960207808761",
             appId: "1:960207808761:web:4283824abee35eaeecda28"
@@ -390,6 +390,7 @@
         console.log("Firebase מחובר בגרסה compat!");
     </script>
 
+    <!-- הסקריפט הראשי – חייב להיות אחרי Firebase -->
     <script>
         const SCHEDULE = [
             { name: 'נווה מקסים', address: 'הורדים 19, רמלה', city: 'רמלה', type: 'פלאי תאטרון', day: 0, time: '08:30' },
@@ -662,26 +663,25 @@
                 
                 const dayLessons = SCHEDULE.filter(l => l.day === dayOfWeek);
                 
-                       dayLessons.forEach(lesson => {
-            const status = getLessonStatus(d, lesson.name);
-            
-            // אם בוטל → לא סופרים בכלל
-            if (status === 'cancelled') return;
-            
-            // אם כפול → 2, אם בוצע או pending → 1
-            const count = (status === 'double') ? 2 : 1;
-            total += count;
-            
-            if (lesson.city === 'רמלה') {
-                ramla += count;
-                if (lesson.type === 'ספורטיגן') sportigenR += count;
-                else theaterR += count;
-            } else {
-                by += count;
-                if (lesson.type === 'ספורטיגן') sportigenB += count;
-                else theaterB += count;
-            }
-        });
+                dayLessons.forEach(lesson => {
+                    const status = getLessonStatus(d, lesson.name);
+                    
+                    // אם בוטל → לא סופרים בכלל
+                    if (status === 'cancelled') return;
+                    
+                    // אם כפול → 2, אם בוצע או pending → 1
+                    const count = (status === 'double') ? 2 : 1;
+                    total += count;
+                    
+                    if (lesson.city === 'רמלה') {
+                        ramla += count;
+                        if (lesson.type === 'ספורטיגן') sportigenR += count;
+                        else theaterR += count;
+                    } else {
+                        by += count;
+                        if (lesson.type === 'ספורטיגן') sportigenB += count;
+                        else theaterB += count;
+                    }
                 });
                 
                 const dateKey = d.toISOString().split('T')[0];
