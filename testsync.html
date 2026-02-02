@@ -373,7 +373,7 @@
             <h1>📚 לוח זמנים - גנים</h1>
             <div class="sync-status">
                 <span class="sync-indicator"></span>
-                נתונים נשמרים אוטומטית
+                נתונים נשמרים אוטומטית בענן
             </div>
         </div>
 
@@ -469,17 +469,17 @@
         let completedLessons = {};
         let makeupLessons = {};
 
+        // טעינת נתונים מ-Firebase בזמן אמת
         function loadData() {
-            const completed = localStorage.getItem('completedLessons');
-            const makeup = localStorage.getItem('makeupLessons');
-            
-            if (completed) completedLessons = JSON.parse(completed);
-            if (makeup) makeupLessons = JSON.parse(makeup);
-        }
+            db.ref('completedLessons').on('value', (snapshot) => {
+                completedLessons = snapshot.val() || {};
+                renderAll();
+            });
 
-        function saveData() {
-            localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
-            localStorage.setItem('makeupLessons', JSON.stringify(makeupLessons));
+            db.ref('makeupLessons').on('value', (snapshot) => {
+                makeupLessons = snapshot.val() || {};
+                renderAll();
+            });
         }
 
         function getLessonKey(date, lessonName) {
@@ -492,14 +492,16 @@
         }
 
         function setLessonStatus(date, lessonName, status) {
-            const key = getLessonKey(date, lessonName);
+            const dateStr = date.toISOString().split('T')[0];
+            const key = `${dateStr}-${lessonName}`;
+
+            const ref = db.ref(`completedLessons/${key}`);
+
             if (status === 'pending') {
-                delete completedLessons[key];
+                ref.remove();
             } else {
-                completedLessons[key] = status;
+                ref.set(status);
             }
-            saveData();
-            renderAll();
         }
 
         function updateDateDisplay() {
@@ -624,7 +626,8 @@
                 originalLesson: originalLesson.name
             });
             
-            saveData();
+            db.ref(`makeupLessons/${dateKey}`).set(makeupLessons[dateKey]);
+            
             renderAll();
             alert('שיעור השלמה נוסף בהצלחה!');
         }
@@ -671,15 +674,15 @@
                                 </div>
                                 <div class="lesson-actions">
                                     <button class="action-btn btn-done ${status === 'done' ? 'active' : ''}" 
-                                            onclick="setLessonStatus(date, '${lesson.name}', '${status === 'done' ? 'pending' : 'done'}')">
+                                            onclick="setLessonStatus(new Date('${dateKey}T00:00:00'), '${lesson.name.replace(/'/g, "\\'")}', '${status === 'done' ? 'pending' : 'done'}')">
                                         ✓ בוצע
                                     </button>
                                     <button class="action-btn btn-double ${status === 'double' ? 'active' : ''}" 
-                                            onclick="setLessonStatus(date, '${lesson.name}', '${status === 'double' ? 'pending' : 'double'}')">
+                                            onclick="setLessonStatus(new Date('${dateKey}T00:00:00'), '${lesson.name.replace(/'/g, "\\'")}', '${status === 'double' ? 'pending' : 'double'}')">
                                         ×2 כפול
                                     </button>
                                     <button class="action-btn btn-cancel ${status === 'cancelled' ? 'active' : ''}" 
-                                            onclick="setLessonStatus(date, '${lesson.name}', '${status === 'cancelled' ? 'pending' : 'cancelled'}')">
+                                            onclick="setLessonStatus(new Date('${dateKey}T00:00:00'), '${lesson.name.replace(/'/g, "\\'")}', '${status === 'cancelled' ? 'pending' : 'cancelled'}')">
                                         ✗ בוטל
                                     </button>
                                 </div>
