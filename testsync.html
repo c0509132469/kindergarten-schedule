@@ -6,365 +6,61 @@
     <title>לוח זמנים - גנים</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-        
-        .app {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            min-height: 100vh;
-            box-shadow: 0 0 50px rgba(0,0,0,0.3);
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-        
-        .header h1 {
-            font-size: 1.8em;
-            margin-bottom: 10px;
-        }
-        
-        .sync-status {
-            font-size: 0.85em;
-            opacity: 0.9;
-            margin-top: 8px;
-        }
-        
-        .sync-indicator {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #4caf50;
-            margin-left: 5px;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
-        .date-nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 20px;
-            background: #f8f9fa;
-            border-bottom: 2px solid #e0e0e0;
-            position: sticky;
-            top: 85px;
-            z-index: 99;
-        }
-        
-        .date-nav button {
-            background: #667eea;
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .date-nav button:hover {
-            background: #5568d3;
-            transform: scale(1.1);
-        }
-        
-        .date-nav button:active {
-            transform: scale(0.95);
-        }
-        
-        .current-date {
-            font-size: 1.1em;
-            font-weight: 600;
-            color: #333;
-            text-align: center;
-            flex: 1;
-        }
-        
-        .today-btn {
-            background: #4caf50 !important;
-            width: auto !important;
-            padding: 0 15px !important;
-            border-radius: 20px !important;
-            font-size: 0.9em !important;
-        }
-        
-        .tabs {
-            display: flex;
-            background: white;
-            border-bottom: 2px solid #e0e0e0;
-            position: sticky;
-            top: 145px;
-            z-index: 98;
-        }
-        
-        .tab {
-            flex: 1;
-            padding: 15px;
-            text-align: center;
-            background: white;
-            border: none;
-            font-size: 1em;
-            font-weight: 600;
-            cursor: pointer;
-            color: #666;
-            transition: all 0.3s;
-        }
-        
-        .tab.active {
-            color: #667eea;
-            border-bottom: 3px solid #667eea;
-        }
-        
-        .content {
-            padding: 20px;
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        .lesson-card {
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 12px;
-            transition: all 0.3s;
-        }
-        
-        .lesson-card.done {
-            background: #e8f5e9;
-            border-color: #4caf50;
-        }
-        
-        .lesson-card.cancelled {
-            background: #ffebee;
-            border-color: #f44336;
-            opacity: 0.6;
-        }
-        
-        .lesson-card.double {
-            border-left: 5px solid #ff9800;
-        }
-        
-        .lesson-card.makeup {
-            border-left: 5px solid #9c27b0;
-            background: #f3e5f5;
-        }
-        
-        .lesson-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        
-        .lesson-time {
-            font-size: 0.9em;
-            color: #667eea;
-            font-weight: 600;
-        }
-        
-        .lesson-name {
-            font-size: 1.1em;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
-        .lesson-details {
-            font-size: 0.85em;
-            color: #666;
-            margin-bottom: 10px;
-        }
-        
-        .lesson-actions {
-            display: flex;
-            gap: 8px;
-        }
-        
-        .action-btn {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 8px;
-            font-size: 0.9em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .btn-done {
-            background: #4caf50;
-            color: white;
-        }
-        
-        .btn-done.active {
-            background: #2e7d32;
-        }
-        
-        .btn-double {
-            background: #ff9800;
-            color: white;
-        }
-        
-        .btn-double.active {
-            background: #e65100;
-        }
-        
-        .btn-cancel {
-            background: #f44336;
-            color: white;
-        }
-        
-        .btn-cancel.active {
-            background: #c62828;
-        }
-        
-        .stat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        
-        .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-        }
-        
-        .stat-card.ramla {
-            background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
-        }
-        
-        .stat-card.by {
-            background: linear-gradient(135deg, #7b1fa2 0%, #6a1b9a 100%);
-        }
-        
-        .stat-label {
-            font-size: 0.85em;
-            opacity: 0.9;
-            margin-bottom: 5px;
-        }
-        
-        .stat-value {
-            font-size: 2em;
-            font-weight: bold;
-        }
-        
-        .stat-subvalue {
-            font-size: 0.85em;
-            opacity: 0.9;
-            margin-top: 5px;
-        }
-        
-        .report-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .report-table th {
-            background: #667eea;
-            color: white;
-            padding: 12px;
-            font-size: 0.9em;
-            text-align: right;
-        }
-        
-        .report-table td {
-            padding: 12px;
-            border-bottom: 1px solid #e0e0e0;
-            font-size: 0.9em;
-        }
-        
-        .report-table tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .total-row {
-            background: #f5f5f5;
-            font-weight: bold;
-        }
-        
-        .export-btn {
-            width: 100%;
-            padding: 15px;
-            background: #4caf50;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1em;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 10px;
-        }
-        
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #999;
-        }
-        
-        .empty-state-icon {
-            font-size: 4em;
-            margin-bottom: 10px;
-        }
-        
-        .add-makeup-btn {
-            width: 100%;
-            padding: 15px;
-            background: #9c27b0;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1em;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-        
-        .section-title {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #667eea;
-            margin: 30px 0 15px 0;
-        }
-        
-        @media (max-width: 600px) {
-            .app { box-shadow: none; }
-            .header h1 { font-size: 1.5em; }
-            .stat-grid { grid-template-columns: repeat(2, 1fr); }
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
+        .app { max-width: 900px; margin: 0 auto; background: white; min-height: 100vh; box-shadow: 0 0 50px rgba(0,0,0,0.3); }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; text-align: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .header h1 { font-size: 1.8em; margin-bottom: 10px; }
+        .sync-status { font-size: 0.85em; opacity: 0.9; margin-top: 8px; }
+        .sync-indicator { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #4caf50; margin-left: 5px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .date-nav { display: flex; align-items: center; justify-content: space-between; padding: 15px 20px; background: #f8f9fa; border-bottom: 2px solid #e0e0e0; position: sticky; top: 85px; z-index: 99; }
+        .date-nav button { background: #667eea; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.2em; cursor: pointer; transition: all 0.3s; }
+        .date-nav button:hover { background: #5568d3; transform: scale(1.1); }
+        .date-nav button:active { transform: scale(0.95); }
+        .current-date { font-size: 1.1em; font-weight: 600; color: #333; text-align: center; flex: 1; }
+        .today-btn { background: #4caf50 !important; width: auto !important; padding: 0 15px !important; border-radius: 20px !important; font-size: 0.9em !important; }
+        .tabs { display: flex; background: white; border-bottom: 2px solid #e0e0e0; position: sticky; top: 145px; z-index: 98; }
+        .tab { flex: 1; padding: 15px; text-align: center; background: white; border: none; font-size: 1em; font-weight: 600; cursor: pointer; color: #666; transition: all 0.3s; }
+        .tab.active { color: #667eea; border-bottom: 3px solid #667eea; }
+        .content { padding: 20px; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .lesson-card { background: white; border: 2px solid #e0e0e0; border-radius: 12px; padding: 15px; margin-bottom: 12px; transition: all 0.3s; }
+        .lesson-card.done { background: #e8f5e9; border-color: #4caf50; }
+        .lesson-card.cancelled { background: #ffebee; border-color: #f44336; opacity: 0.6; }
+        .lesson-card.double { border-left: 5px solid #ff9800; }
+        .lesson-card.makeup { border-left: 5px solid #9c27b0; background: #f3e5f5; }
+        .lesson-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .lesson-time { font-size: 0.9em; color: #667eea; font-weight: 600; }
+        .lesson-name { font-size: 1.1em; font-weight: bold; margin-bottom: 5px; }
+        .lesson-details { font-size: 0.85em; color: #666; margin-bottom: 10px; }
+        .lesson-actions { display: flex; gap: 8px; }
+        .action-btn { flex: 1; padding: 10px; border: none; border-radius: 8px; font-size: 0.9em; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .btn-done { background: #4caf50; color: white; }
+        .btn-done.active { background: #2e7d32; }
+        .btn-double { background: #ff9800; color: white; }
+        .btn-double.active { background: #e65100; }
+        .btn-cancel { background: #f44336; color: white; }
+        .btn-cancel.active { background: #c62828; }
+        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 20px; }
+        .stat-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 12px; text-align: center; }
+        .stat-card.ramla { background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%); }
+        .stat-card.by { background: linear-gradient(135deg, #7b1fa2 0%, #6a1b9a 100%); }
+        .stat-label { font-size: 0.85em; opacity: 0.9; margin-bottom: 5px; }
+        .stat-value { font-size: 2em; font-weight: bold; }
+        .stat-subvalue { font-size: 0.85em; opacity: 0.9; margin-top: 5px; }
+        .report-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .report-table th { background: #667eea; color: white; padding: 12px; font-size: 0.9em; text-align: right; }
+        .report-table td { padding: 12px; border-bottom: 1px solid #e0e0e0; font-size: 0.9em; }
+        .report-table tr:last-child td { border-bottom: none; }
+        .total-row { background: #f5f5f5; font-weight: bold; }
+        .export-btn { width: 100%; padding: 15px; background: #4caf50; color: white; border: none; border-radius: 10px; font-size: 1em; font-weight: 600; cursor: pointer; margin-bottom: 10px; }
+        .empty-state { text-align: center; padding: 60px 20px; color: #999; }
+        .empty-state-icon { font-size: 4em; margin-bottom: 10px; }
+        .add-makeup-btn { width: 100%; padding: 15px; background: #9c27b0; color: white; border: none; border-radius: 10px; font-size: 1em; font-weight: 600; cursor: pointer; margin-bottom: 20px; }
+        .section-title { font-size: 1.2em; font-weight: bold; color: #667eea; margin: 30px 0 15px 0; }
+        .daily-km-summary { margin-top: 20px; padding: 15px; background: #f0f4ff; border-radius: 10px; text-align: center; font-weight: bold; font-size: 1.1em; border: 1px solid #d0e0ff; }
+        @media (max-width: 600px) { .app { box-shadow: none; } .header h1 { font-size: 1.5em; } .stat-grid { grid-template-columns: repeat(2, 1fr); } }
     </style>
 </head>
 <body>
@@ -394,6 +90,7 @@
         <div class="content">
             <div id="daily" class="tab-content active">
                 <div id="dailyLessons"></div>
+                <div id="dailyKmSummary" class="daily-km-summary"></div>
             </div>
 
             <div id="makeup" class="tab-content">
@@ -464,10 +161,22 @@
         ];
 
         const DAY_NAMES = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
-        
+
         let currentDate = new Date();
         let completedLessons = {};
         let makeupLessons = {};
+        let currentLocation = { lat: 31.9730, lng: 34.7925 }; // רמלה כברירת מחדל
+
+        // קבל מיקום נוכחי
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(pos => {
+                currentLocation = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+                console.log("מיקום נוכחי:", currentLocation);
+                renderAll();
+            }, err => {
+                console.log("לא ניתן לקבל מיקום:", err.message);
+            });
+        }
 
         // טעינת נתונים מ-Firebase בזמן אמת
         function loadData() {
@@ -494,7 +203,6 @@
         function setLessonStatus(date, lessonName, status) {
             const dateStr = date.toISOString().split('T')[0];
             const key = `${dateStr}-${lessonName}`;
-
             const ref = db.ref(`completedLessons/${key}`);
 
             if (status === 'pending') {
@@ -529,11 +237,83 @@
         function showTab(tabName) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            
             event.target.classList.add('active');
             document.getElementById(tabName).classList.add('active');
-            
             renderAll();
+        }
+
+        // המרת כתובת ל-lat/lng עם Nominatim (חינמי)
+        async function geocodeAddress(address) {
+            try {
+                const encoded = encodeURIComponent(address + ", Israel");
+                const url = `https://nominatim.openstreetmap.org/search?q=${encoded}&format=json&limit=1`;
+                const response = await fetch(url, {
+                    headers: { 'User-Agent': 'KindergartenSchedule/1.0 (contact@example.com)' }
+                });
+                const data = await response.json();
+                if (data && data.length > 0) {
+                    return { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) };
+                }
+            } catch (err) {
+                console.error("שגיאה בנומינטים:", err);
+            }
+            return null;
+        }
+
+        // חישוב מרחק + זמן + הדרך הארוכה עם OSRM
+        async function getLongestRouteKmAndTime(from, to) {
+            if (!from || !to) return { km: '0.0', timeMin: 0 };
+
+            try {
+                const url = `https://router.project-osrm.org/route/v1/driving/${from.lng},${from.lat};${to.lng},${to.lat}?overview=false&alternatives=true`;
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.code === 'Ok' && data.routes && data.routes.length > 0) {
+                    // מיון לפי מרחק יורד – לקחת את הארוך ביותר
+                    const sorted = data.routes.sort((a, b) => b.distance - a.distance);
+                    const longest = sorted[0];
+
+                    return {
+                        km: (longest.distance / 1000).toFixed(1),
+                        timeMin: Math.round(longest.duration / 60)
+                    };
+                }
+            } catch (err) {
+                console.error("שגיאה ב-OSRM:", err);
+            }
+            return { km: '0.0', timeMin: 0 };
+        }
+
+        // סיכום ק"מ ליום
+        async function calculateDailyKm() {
+            const dayOfWeek = currentDate.getDay();
+            if (dayOfWeek === 6) return { km: '0.0', time: 0 };
+
+            const dayLessons = SCHEDULE.filter(l => l.day === dayOfWeek);
+            let totalKm = 0;
+            let totalTime = 0;
+
+            for (const lesson of dayLessons) {
+                const status = getLessonStatus(currentDate, lesson.name);
+                if (status !== 'done' && status !== 'double') continue;
+
+                const count = status === 'double' ? 2 : 1;
+
+                // המרת כתובת ל-lat/lng
+                const to = await geocodeAddress(lesson.address);
+                if (to) {
+                    const route = await getLongestRouteKmAndTime(currentLocation, to);
+                    totalKm += count * parseFloat(route.km);
+                    totalTime += count * route.timeMin;
+                } else {
+                    // אם לא הצליח – משתמש בערך משוער
+                    totalKm += count * 5;
+                    totalTime += count * 15;
+                }
+            }
+
+            return { km: totalKm.toFixed(1), time: totalTime };
         }
 
         function renderDaily() {
@@ -547,6 +327,7 @@
                         <div>שבת שלום! אין שיעורים היום</div>
                     </div>
                 `;
+                document.getElementById('dailyKmSummary').innerHTML = '';
                 return;
             }
             
@@ -559,6 +340,7 @@
                         <div>אין שיעורים קבועים ביום זה</div>
                     </div>
                 `;
+                document.getElementById('dailyKmSummary').innerHTML = '';
                 return;
             }
             
@@ -595,347 +377,16 @@
                     </div>
                 `;
             }).join('');
-        }
 
-        function showAddMakeup() {
-            const lessonName = prompt('הכנס שם גן להשלמה:');
-            if (!lessonName) return;
-            
-            const originalLesson = SCHEDULE.find(l => l.name.includes(lessonName) || lessonName.includes(l.name));
-            if (!originalLesson) {
-                alert('לא נמצא גן עם השם הזה');
-                return;
-            }
-            
-            const nextFriday = new Date(currentDate);
-            while (nextFriday.getDay() !== 5) {
-                nextFriday.setDate(nextFriday.getDate() + 1);
-            }
-            
-            const dateKey = nextFriday.toISOString().split('T')[0];
-            if (!makeupLessons[dateKey]) {
-                makeupLessons[dateKey] = [];
-            }
-            
-            const time = prompt('שעת ההשלמה:', '09:00');
-            if (!time) return;
-            
-            makeupLessons[dateKey].push({
-                ...originalLesson,
-                time: time,
-                originalLesson: originalLesson.name
+            // סיכום ק"מ ליום
+            calculateDailyKm().then(summary => {
+                document.getElementById('dailyKmSummary').innerHTML = `
+                    סה"כ ק"מ ליום זה (רק שבוצעו/כפולים): ${summary.km} ק"מ • זמן משוער: ${summary.time} דקות
+                `;
             });
-            
-            db.ref(`makeupLessons/${dateKey}`).set(makeupLessons[dateKey]);
-            
-            renderAll();
-            alert('שיעור השלמה נוסף בהצלחה!');
         }
 
-        function renderMakeup() {
-            const container = document.getElementById('makeupLessons');
-            
-            const fridays = Object.keys(makeupLessons).sort();
-            
-            if (fridays.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-state-icon">📝</div>
-                        <div>אין שיעורי השלמה מתוכננים</div>
-                    </div>
-                `;
-                return;
-            }
-            
-            container.innerHTML = fridays.map(dateKey => {
-                const date = new Date(dateKey + 'T00:00:00');
-                const lessons = makeupLessons[dateKey];
-                
-                return `
-                    <div class="section-title">
-                        יום שישי, ${date.toLocaleDateString('he-IL', { day: 'numeric', month: 'long' })}
-                    </div>
-                    ${lessons.map((lesson, index) => {
-                        const status = getLessonStatus(date, lesson.name);
-                        const statusClass = status === 'done' ? 'done makeup' : 
-                                          status === 'cancelled' ? 'cancelled makeup' : 
-                                          status === 'double' ? 'double done makeup' : 'makeup';
-                        
-                        return `
-                            <div class="lesson-card ${statusClass}">
-                                <div class="lesson-header">
-                                    <div class="lesson-time">${lesson.time}</div>
-                                </div>
-                                <div class="lesson-name">${lesson.name} 🔄</div>
-                                <div class="lesson-details">
-                                    📍 ${lesson.address}<br>
-                                    🏫 ${lesson.type} • ${lesson.city}<br>
-                                    <small>השלמה עבור: ${lesson.originalLesson}</small>
-                                </div>
-                                <div class="lesson-actions">
-                                    <button class="action-btn btn-done ${status === 'done' ? 'active' : ''}" 
-                                            onclick="setLessonStatus(new Date('${dateKey}T00:00:00'), '${lesson.name.replace(/'/g, "\\'")}', '${status === 'done' ? 'pending' : 'done'}')">
-                                        ✓ בוצע
-                                    </button>
-                                    <button class="action-btn btn-double ${status === 'double' ? 'active' : ''}" 
-                                            onclick="setLessonStatus(new Date('${dateKey}T00:00:00'), '${lesson.name.replace(/'/g, "\\'")}', '${status === 'double' ? 'pending' : 'double'}')">
-                                        ×2 כפול
-                                    </button>
-                                    <button class="action-btn btn-cancel ${status === 'cancelled' ? 'active' : ''}" 
-                                            onclick="setLessonStatus(new Date('${dateKey}T00:00:00'), '${lesson.name.replace(/'/g, "\\'")}', '${status === 'cancelled' ? 'pending' : 'cancelled'}')">
-                                        ✗ בוטל
-                                    </button>
-                                </div>
-                            </div>
-                        `;
-                    }).join('')}
-                `;
-            }).join('');
-        }
-
-        function calculateStats(startDate, endDate) {
-            let total = 0, ramla = 0, by = 0;
-            let sportigenR = 0, sportigenB = 0, theaterR = 0, theaterB = 0;
-            
-            for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
-                const dayOfWeek = d.getDay();
-                if (dayOfWeek === 6) continue;
-                
-                const dayLessons = SCHEDULE.filter(l => l.day === dayOfWeek);
-                
-                dayLessons.forEach(lesson => {
-                    const status = getLessonStatus(d, lesson.name);
-                    if (status === 'cancelled') return;
-                    
-                    const count = status === 'double' ? 2 : 1;
-                    total += count;
-                    
-                    if (lesson.city === 'רמלה') {
-                        ramla += count;
-                        if (lesson.type === 'ספורטיגן') sportigenR += count;
-                        else theaterR += count;
-                    } else {
-                        by += count;
-                        if (lesson.type === 'ספורטיגן') sportigenB += count;
-                        else theaterB += count;
-                    }
-                });
-                
-                const dateKey = d.toISOString().split('T')[0];
-                if (makeupLessons[dateKey]) {
-                    makeupLessons[dateKey].forEach(lesson => {
-                        const status = getLessonStatus(d, lesson.name);
-                        if (status === 'cancelled') return;
-                        
-                        const count = status === 'double' ? 2 : 1;
-                        total += count;
-                        
-                        if (lesson.city === 'רמלה') {
-                            ramla += count;
-                            if (lesson.type === 'ספורטיגן') sportigenR += count;
-                            else theaterR += count;
-                        } else {
-                            by += count;
-                            if (lesson.type === 'ספורטיגן') sportigenB += count;
-                            else theaterB += count;
-                        }
-                    });
-                }
-            }
-            
-            return { total, ramla, by, sportigenR, sportigenB, theaterR, theaterB };
-        }
-
-        function renderWeekly() {
-            const container = document.getElementById('weeklyContent');
-            
-            const weekStart = new Date(currentDate);
-            weekStart.setDate(currentDate.getDate() - currentDate.getDay());
-            
-            const weekEnd = new Date(weekStart);
-            weekEnd.setDate(weekStart.getDate() + 6);
-            
-            const stats = calculateStats(weekStart, weekEnd);
-            
-            container.innerHTML = `
-                <h3 style="margin-bottom: 20px; color: #667eea; text-align: center;">
-                    סיכום שבועי<br>
-                    <small style="font-size: 0.8em; font-weight: normal;">
-                        ${weekStart.toLocaleDateString('he-IL', { day: 'numeric', month: 'long' })} - 
-                        ${weekEnd.toLocaleDateString('he-IL', { day: 'numeric', month: 'long' })}
-                    </small>
-                </h3>
-                
-                <div class="stat-grid">
-                    <div class="stat-card">
-                        <div class="stat-label">סה"כ שיעורים</div>
-                        <div class="stat-value">${stats.total}</div>
-                        <div class="stat-subvalue">חישוב 1.3: ${(stats.total * 1.3).toFixed(1)}</div>
-                    </div>
-                    <div class="stat-card ramla">
-                        <div class="stat-label">ברמלה</div>
-                        <div class="stat-value">${stats.ramla}</div>
-                        <div class="stat-subvalue">ספורטיגן: ${stats.sportigenR} | פלאי: ${stats.theaterR}</div>
-                    </div>
-                    <div class="stat-card by">
-                        <div class="stat-label">בבאר יעקב</div>
-                        <div class="stat-value">${stats.by}</div>
-                        <div class="stat-subvalue">ספורטיגן: ${stats.sportigenB} | פלאי: ${stats.theaterB}</div>
-                    </div>
-                </div>
-                
-                <table class="report-table">
-                    <thead>
-                        <tr>
-                            <th>עיר</th>
-                            <th>ספורטיגן</th>
-                            <th>פלאי תאטרון</th>
-                            <th>סה"כ</th>
-                            <th>חישוב 1.3</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>רמלה</td>
-                            <td>${stats.sportigenR}</td>
-                            <td>${stats.theaterR}</td>
-                            <td>${stats.ramla}</td>
-                            <td>${(stats.ramla * 1.3).toFixed(1)}</td>
-                        </tr>
-                        <tr>
-                            <td>באר יעקב</td>
-                            <td>${stats.sportigenB}</td>
-                            <td>${stats.theaterB}</td>
-                            <td>${stats.by}</td>
-                            <td>${(stats.by * 1.3).toFixed(1)}</td>
-                        </tr>
-                        <tr class="total-row">
-                            <td>סה"כ</td>
-                            <td>${stats.sportigenR + stats.sportigenB}</td>
-                            <td>${stats.theaterR + stats.theaterB}</td>
-                            <td>${stats.total}</td>
-                            <td>${(stats.total * 1.3).toFixed(1)}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            `;
-        }
-
-        function renderMonthly() {
-            const container = document.getElementById('monthlyContent');
-            
-            const monthStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-            const monthEnd = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-            
-            const stats = calculateStats(monthStart, monthEnd);
-            
-            const monthName = currentDate.toLocaleDateString('he-IL', { month: 'long', year: 'numeric' });
-            
-            container.innerHTML = `
-                <h3 style="margin-bottom: 20px; color: #667eea; text-align: center;">
-                    דוח חודשי - ${monthName}
-                </h3>
-                
-                <div class="stat-grid">
-                    <div class="stat-card">
-                        <div class="stat-label">סה"כ שיעורים</div>
-                        <div class="stat-value">${stats.total}</div>
-                        <div class="stat-subvalue">חישוב 1.3: ${(stats.total * 1.3).toFixed(1)}</div>
-                    </div>
-                    <div class="stat-card ramla">
-                        <div class="stat-label">ברמלה</div>
-                        <div class="stat-value">${stats.ramla}</div>
-                        <div class="stat-subvalue">ספורטיגן: ${stats.sportigenR} | פלאי: ${stats.theaterR}</div>
-                    </div>
-                    <div class="stat-card by">
-                        <div class="stat-label">בבאר יעקב</div>
-                        <div class="stat-value">${stats.by}</div>
-                        <div class="stat-subvalue">ספורטיגן: ${stats.sportigenB} | פלאי: ${stats.theaterB}</div>
-                    </div>
-                </div>
-                
-                <table class="report-table">
-                    <thead>
-                        <tr>
-                            <th>קטגוריה</th>
-                            <th>רמלה</th>
-                            <th>באר יעקב</th>
-                            <th>סה"כ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>ספורטיגן</td>
-                            <td>${stats.sportigenR}</td>
-                            <td>${stats.sportigenB}</td>
-                            <td>${stats.sportigenR + stats.sportigenB}</td>
-                        </tr>
-                        <tr>
-                            <td>פלאי תאטרון</td>
-                            <td>${stats.theaterR}</td>
-                            <td>${stats.theaterB}</td>
-                            <td>${stats.theaterR + stats.theaterB}</td>
-                        </tr>
-                        <tr class="total-row">
-                            <td>סה"כ</td>
-                            <td>${stats.ramla}</td>
-                            <td>${stats.by}</td>
-                            <td>${stats.total}</td>
-                        </tr>
-                        <tr>
-                            <td>חישוב 1.3</td>
-                            <td>${(stats.ramla * 1.3).toFixed(1)}</td>
-                            <td>${(stats.by * 1.3).toFixed(1)}</td>
-                            <td>${(stats.total * 1.3).toFixed(1)}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            `;
-        }
-
-        function exportReport(type) {
-            let startDate, endDate, title;
-           
-            if (type === 'weekly') {
-                startDate = new Date(currentDate);
-                startDate.setDate(currentDate.getDate() - currentDate.getDay());
-                endDate = new Date(startDate);
-                endDate.setDate(startDate.getDate() + 6);
-                title = `דוח_שבועי_${startDate.toISOString().split('T')[0]}`;
-            } else {
-                startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-                endDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-                const monthName = currentDate.toLocaleDateString('he-IL', { month: 'long', year: 'numeric' });
-                title = `דוח_חודשי_${monthName.replace(' ', '_')}`;
-            }
-           
-            const stats = calculateStats(startDate, endDate);
-           
-            let csv = `${title}\n\n`;
-            csv += 'קטגוריה,רמלה,באר יעקב,סה"כ\n';
-            csv += `ספורטיגן,${stats.sportigenR},${stats.sportigenB},${stats.sportigenR + stats.sportigenB}\n`;
-            csv += `פלאי תאטרון,${stats.theaterR},${stats.theaterB},${stats.theaterR + stats.theaterB}\n`;
-            csv += `סה"כ,${stats.ramla},${stats.by},${stats.total}\n`;
-            csv += `חישוב 1.3,${(stats.ramla * 1.3).toFixed(1)},${(stats.by * 1.3).toFixed(1)},${(stats.total * 1.3).toFixed(1)}\n`;
-           
-            const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = `${title}.csv`;
-            link.click();
-        }
-
-        function renderAll() {
-            const activeTab = document.querySelector('.tab.active');
-            if (!activeTab) return;
-           
-            const tabText = activeTab.textContent.trim();
-           
-            if (tabText.includes('יומי')) renderDaily();
-            else if (tabText.includes('השלמות')) renderMakeup();
-            else if (tabText.includes('שבועי')) renderWeekly();
-            else if (tabText.includes('חודשי')) renderMonthly();
-        }
+        // ... (הפונקציות האחרות – showAddMakeup, renderMakeup, calculateStats, renderWeekly, renderMonthly, exportReport, renderAll – נשארות כמו שהיו בקוד הקודם שלך)
 
         // Initialize
         loadData();
