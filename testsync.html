@@ -6,13 +6,11 @@
     <title>לוח זמנים - גנים</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
         }
-        
         .app {
             max-width: 900px;
             margin: 0 auto;
@@ -20,7 +18,6 @@
             min-height: 100vh;
             box-shadow: 0 0 50px rgba(0,0,0,0.3);
         }
-        
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -31,18 +28,15 @@
             z-index: 100;
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
-        
         .header h1 {
             font-size: 1.8em;
             margin-bottom: 10px;
         }
-        
         .sync-status {
             font-size: 0.85em;
             opacity: 0.9;
             margin-top: 8px;
         }
-        
         .sync-indicator {
             display: inline-block;
             width: 8px;
@@ -52,12 +46,10 @@
             margin-left: 5px;
             animation: pulse 2s infinite;
         }
-        
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
         }
-        
         .date-nav {
             display: flex;
             align-items: center;
@@ -69,7 +61,6 @@
             top: 85px;
             z-index: 99;
         }
-        
         .date-nav button {
             background: #667eea;
             color: white;
@@ -81,16 +72,13 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-        
         .date-nav button:hover {
             background: #5568d3;
             transform: scale(1.1);
         }
-        
         .date-nav button:active {
             transform: scale(0.95);
         }
-        
         .current-date {
             font-size: 1.1em;
             font-weight: 600;
@@ -98,7 +86,6 @@
             text-align: center;
             flex: 1;
         }
-        
         .today-btn {
             background: #4caf50 !important;
             width: auto !important;
@@ -106,7 +93,6 @@
             border-radius: 20px !important;
             font-size: 0.9em !important;
         }
-        
         .tabs {
             display: flex;
             background: white;
@@ -115,7 +101,6 @@
             top: 145px;
             z-index: 98;
         }
-        
         .tab {
             flex: 1;
             padding: 15px;
@@ -128,24 +113,19 @@
             color: #666;
             transition: all 0.3s;
         }
-        
         .tab.active {
             color: #667eea;
             border-bottom: 3px solid #667eea;
         }
-        
         .content {
             padding: 20px;
         }
-        
         .tab-content {
             display: none;
         }
-        
         .tab-content.active {
             display: block;
         }
-        
         .day-indicator {
             background: #f8f9fa;
             padding: 15px;
@@ -155,7 +135,6 @@
             font-weight: 600;
             color: #667eea;
         }
-        
         .lesson-card {
             background: white;
             border: 2px solid #e0e0e0;
@@ -164,57 +143,47 @@
             margin-bottom: 12px;
             transition: all 0.3s;
         }
-        
         .lesson-card.done {
             background: #e8f5e9;
             border-color: #4caf50;
         }
-        
         .lesson-card.cancelled {
             background: #ffebee;
             border-color: #f44336;
             opacity: 0.6;
         }
-        
         .lesson-card.double {
             border-left: 5px solid #ff9800;
         }
-        
         .lesson-card.makeup {
             border-left: 5px solid #9c27b0;
             background: #f3e5f5;
         }
-        
         .lesson-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 10px;
         }
-        
         .lesson-time {
             font-size: 0.9em;
             color: #667eea;
             font-weight: 600;
         }
-        
         .lesson-name {
             font-size: 1.1em;
             font-weight: bold;
             margin-bottom: 5px;
         }
-        
         .lesson-details {
             font-size: 0.85em;
             color: #666;
             margin-bottom: 10px;
         }
-        
         .lesson-actions {
             display: flex;
             gap: 8px;
         }
-        
         .action-btn {
             flex: 1;
             padding: 10px;
@@ -225,41 +194,33 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-        
         .btn-done {
             background: #4caf50;
             color: white;
         }
-        
         .btn-done.active {
             background: #2e7d32;
         }
-        
         .btn-double {
             background: #ff9800;
             color: white;
         }
-        
         .btn-double.active {
             background: #e65100;
         }
-        
         .btn-cancel {
             background: #f44336;
             color: white;
         }
-        
         .btn-cancel.active {
             background: #c62828;
         }
-        
         .stat-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 12px;
             margin-bottom: 20px;
         }
-        
         .stat-card {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -267,32 +228,26 @@
             border-radius: 12px;
             text-align: center;
         }
-        
         .stat-card.ramla {
             background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
         }
-        
         .stat-card.by {
             background: linear-gradient(135deg, #7b1fa2 0%, #6a1b9a 100%);
         }
-        
         .stat-label {
             font-size: 0.85em;
             opacity: 0.9;
             margin-bottom: 5px;
         }
-        
         .stat-value {
             font-size: 2em;
             font-weight: bold;
         }
-        
         .stat-subvalue {
             font-size: 0.85em;
             opacity: 0.9;
             margin-top: 5px;
         }
-        
         .report-table {
             width: 100%;
             border-collapse: collapse;
@@ -302,7 +257,6 @@
             overflow: hidden;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        
         .report-table th {
             background: #667eea;
             color: white;
@@ -310,22 +264,18 @@
             font-size: 0.9em;
             text-align: right;
         }
-        
         .report-table td {
             padding: 12px;
             border-bottom: 1px solid #e0e0e0;
             font-size: 0.9em;
         }
-        
         .report-table tr:last-child td {
             border-bottom: none;
         }
-        
         .total-row {
             background: #f5f5f5;
             font-weight: bold;
         }
-        
         .export-btn {
             width: 100%;
             padding: 15px;
@@ -338,18 +288,15 @@
             cursor: pointer;
             margin-bottom: 10px;
         }
-        
         .empty-state {
             text-align: center;
             padding: 60px 20px;
             color: #999;
         }
-        
         .empty-state-icon {
             font-size: 4em;
             margin-bottom: 10px;
         }
-        
         .add-makeup-btn {
             width: 100%;
             padding: 15px;
@@ -362,26 +309,16 @@
             cursor: pointer;
             margin-bottom: 20px;
         }
-        
         .section-title {
             font-size: 1.2em;
             font-weight: bold;
             color: #667eea;
             margin: 30px 0 15px 0;
         }
-        
         @media (max-width: 600px) {
-            .app {
-                box-shadow: none;
-            }
-            
-            .header h1 {
-                font-size: 1.5em;
-            }
-            
-            .stat-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .app { box-shadow: none; }
+            .header h1 { font-size: 1.5em; }
+            .stat-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -431,27 +368,27 @@
         </div>
     </div>
 
-    <!-- Firebase SDK -->
-<!-- Firebase Compat – גרסה יציבה ל-GitHub Pages -->
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+    <!-- Firebase Compat SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
 
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyCv7GIt_uLo6kTNTc3yCW5UDH8je0n-E18",
-    authDomain: "kindergarten-schedule-yo-80f08.firebaseapp.com",
-    projectId: "kindergarten-schedule-yo-80f08",
-    storageBucket: "kindergarten-schedule-yo-80f08.firebasestorage.app",
-    messagingSenderId: "960207808761",
-    appId: "1:960207808761:web:4283824abee35eaeecda28"
-  };
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCv7GIt_uLo6kTNTc3yCW5UDH8je0n-E18",
+            authDomain: "kindergarten-schedule-yo-80f08.firebaseapp.com",
+            projectId: "kindergarten-schedule-yo-80f08",
+            storageBucket: "kindergarten-schedule-yo-80f08.firebasestorage.app",
+            messagingSenderId: "960207808761",
+            appId: "1:960207808761:web:4283824abee35eaeecda28"
+        };
 
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
-  window.db = db;
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        window.db = db;
 
-  console.log("Firebase מחובר בגרסה compat!");
-</script>
+        console.log("Firebase מחובר בגרסה compat!");
+    </script>
+
     <script>
         const SCHEDULE = [
             { name: 'נווה מקסים', address: 'הורדים 19, רמלה', city: 'רמלה', type: 'פלאי תאטרון', day: 0, time: '08:30' },
@@ -460,24 +397,20 @@
             { name: 'העץ הנדיב', address: 'מרדכי גור 4, רמלה', city: 'רמלה', type: 'פלאי תאטרון', day: 0, time: '11:15' },
             { name: 'דלת הקסמים', address: 'מרדכי גור 9, רמלה', city: 'רמלה', type: 'פלאי תאטרון', day: 0, time: '12:10' },
             { name: 'התאנה', address: 'אריה קרמר 20, רמלה', city: 'רמלה', type: 'פלאי תאטרון', day: 0, time: '13:00' },
-            
             { name: 'כנרת', address: 'צהל 1, רמלה', city: 'רמלה', type: 'פלאי תאטרון', day: 1, time: '08:45' },
             { name: 'דירה להשכיר', address: 'מרדכי גור 4, רמלה', city: 'רמלה', type: 'פלאי תאטרון', day: 1, time: '09:40' },
             { name: 'מיימון', address: 'בר אילן 24, רמלה', city: 'רמלה', type: 'פלאי תאטרון', day: 1, time: '10:35' },
             { name: 'יקינטון ר', address: 'וילנא 8, רמלה', city: 'רמלה', type: 'ספורטיגן', day: 1, time: '11:25' },
-            
             { name: 'חצב', address: 'לשם 1, באר יעקב', city: 'באר יעקב', type: 'פלאי תאטרון', day: 2, time: '08:30' },
             { name: 'תלתן', address: 'ברקת 10, באר יעקב', city: 'באר יעקב', type: 'פלאי תאטרון', day: 2, time: '09:25' },
             { name: 'חרמון', address: 'שהם 17, באר יעקב', city: 'באר יעקב', type: 'פלאי תאטרון', day: 2, time: '10:20' },
             { name: 'רבקה', address: 'שהם 21, באר יעקב', city: 'באר יעקב', type: 'פלאי תאטרון', day: 2, time: '11:10' },
             { name: 'יקינטון ב', address: 'הדקל 2, באר יעקב', city: 'באר יעקב', type: 'פלאי תאטרון', day: 2, time: '12:10' },
-            
             { name: 'גלבוע', address: 'הזית 5, רמלה', city: 'רמלה', type: 'פלאי תאטרון', day: 3, time: '08:30' },
             { name: 'מפוחית', address: 'יוסי בנאי 22, רמלה', city: 'רמלה', type: 'פלאי תאטרון', day: 3, time: '09:30' },
             { name: 'סנונית', address: 'שהם 15, באר יעקב', city: 'באר יעקב', type: 'פלאי תאטרון', day: 3, time: '10:30' },
             { name: 'נופר', address: 'ברוש 1, באר יעקב', city: 'באר יעקב', type: 'ספורטיגן', day: 3, time: '11:25' },
             { name: 'דפנה', address: 'ברוש 1, באר יעקב', city: 'באר יעקב', type: 'ספורטיגן', day: 3, time: '12:15' },
-            
             { name: 'ינשוף', address: 'שהם 15, באר יעקב', city: 'באר יעקב', type: 'פלאי תאטרון', day: 4, time: '09:00' },
             { name: 'נגה', address: 'שביט 7, באר יעקב', city: 'באר יעקב', type: 'פלאי תאטרון', day: 4, time: '09:55' },
             { name: 'כובע הקסמים', address: 'רפאל איתן 2, רמלה', city: 'רמלה', type: 'פלאי תאטרון', day: 4, time: '11:00' },
@@ -488,18 +421,16 @@
         const DAY_NAMES = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
         
         let currentDate = new Date();
-        let completedLessons = {}; 
-        let makeupLessons = {}; 
+        let completedLessons = {};
+        let makeupLessons = {};
 
         function loadData() {
-            const completedRef = ref(db, 'completedLessons');
-            onValue(completedRef, (snapshot) => {
+            db.ref('completedLessons').on('value', (snapshot) => {
                 completedLessons = snapshot.val() || {};
                 renderAll();
             });
 
-            const makeupRef = ref(db, 'makeupLessons');
-            onValue(makeupRef, (snapshot) => {
+            db.ref('makeupLessons').on('value', (snapshot) => {
                 makeupLessons = snapshot.val() || {};
                 renderAll();
             });
@@ -522,19 +453,21 @@
             const dateStr = date.toISOString().split('T')[0];
             const key = `${dateStr}-${lessonName}`;
 
+            const ref = db.ref(`completedLessons/${key}`);
+
             if (status === 'pending') {
-                update(ref(db, 'completedLessons'), { [key]: null });
+                ref.remove();
             } else {
-                update(ref(db, 'completedLessons'), { [key]: status });
+                ref.set(status);
             }
         }
 
         function updateDateDisplay() {
             const dayName = DAY_NAMES[currentDate.getDay()];
-            const dateStr = currentDate.toLocaleDateString('he-IL', { 
-                day: 'numeric', 
-                month: 'long', 
-                year: 'numeric' 
+            const dateStr = currentDate.toLocaleDateString('he-IL', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
             });
             document.getElementById('currentDate').textContent = `${dayName}, ${dateStr}`;
         }
@@ -589,8 +522,8 @@
             
             container.innerHTML = dayLessons.map(lesson => {
                 const status = getLessonStatus(currentDate, lesson.name);
-                const statusClass = status === 'done' ? 'done' : 
-                                  status === 'cancelled' ? 'cancelled' : 
+                const statusClass = status === 'done' ? 'done' :
+                                  status === 'cancelled' ? 'cancelled' :
                                   status === 'double' ? 'double done' : '';
                 
                 return `
@@ -604,15 +537,15 @@
                             🏫 ${lesson.type} • ${lesson.city}
                         </div>
                         <div class="lesson-actions">
-                            <button class="action-btn btn-done ${status === 'done' ? 'active' : ''}" 
+                            <button class="action-btn btn-done ${status === 'done' ? 'active' : ''}"
                                     onclick="setLessonStatus(currentDate, '${lesson.name}', '${status === 'done' ? 'pending' : 'done'}')">
                                 ✓ בוצע
                             </button>
-                            <button class="action-btn btn-double ${status === 'double' ? 'active' : ''}" 
+                            <button class="action-btn btn-double ${status === 'double' ? 'active' : ''}"
                                     onclick="setLessonStatus(currentDate, '${lesson.name}', '${status === 'double' ? 'pending' : 'double'}')">
                                 ×2 כפול
                             </button>
-                            <button class="action-btn btn-cancel ${status === 'cancelled' ? 'active' : ''}" 
+                            <button class="action-btn btn-cancel ${status === 'cancelled' ? 'active' : ''}"
                                     onclick="setLessonStatus(currentDate, '${lesson.name}', '${status === 'cancelled' ? 'pending' : 'cancelled'}')">
                                 ✗ בוטל
                             </button>
@@ -651,7 +584,7 @@
                 originalLesson: originalLesson.name
             });
             
-            update(ref(db, 'makeupLessons'), { [dateKey]: makeupLessons[dateKey] });
+            db.ref(`makeupLessons/${dateKey}`).set(makeupLessons[dateKey] || []);
             
             renderAll();
             alert('שיעור השלמה נוסף בהצלחה!');
@@ -682,8 +615,8 @@
                     </div>
                     ${lessons.map((lesson, index) => {
                         const status = getLessonStatus(date, lesson.name);
-                        const statusClass = status === 'done' ? 'done makeup' : 
-                                          status === 'cancelled' ? 'cancelled makeup' : 
+                        const statusClass = status === 'done' ? 'done makeup' :
+                                          status === 'cancelled' ? 'cancelled makeup' :
                                           status === 'double' ? 'double done makeup' : 'makeup';
                         
                         return `
@@ -698,15 +631,15 @@
                                     <small>השלמה עבור: ${lesson.originalLesson}</small>
                                 </div>
                                 <div class="lesson-actions">
-                                    <button class="action-btn btn-done ${status === 'done' ? 'active' : ''}" 
+                                    <button class="action-btn btn-done ${status === 'done' ? 'active' : ''}"
                                             onclick="setLessonStatus(new Date('${dateKey}'), '${lesson.name}', '${status === 'done' ? 'pending' : 'done'}')">
                                         ✓ בוצע
                                     </button>
-                                    <button class="action-btn btn-double ${status === 'double' ? 'active' : ''}" 
+                                    <button class="action-btn btn-double ${status === 'double' ? 'active' : ''}"
                                             onclick="setLessonStatus(new Date('${dateKey}'), '${lesson.name}', '${status === 'double' ? 'pending' : 'double'}')">
                                         ×2 כפול
                                     </button>
-                                    <button class="action-btn btn-cancel ${status === 'cancelled' ? 'active' : ''}" 
+                                    <button class="action-btn btn-cancel ${status === 'cancelled' ? 'active' : ''}"
                                             onclick="setLessonStatus(new Date('${dateKey}'), '${lesson.name}', '${status === 'cancelled' ? 'pending' : 'cancelled'}')">
                                         ✗ בוטל
                                     </button>
